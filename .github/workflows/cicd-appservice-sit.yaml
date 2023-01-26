@@ -8,11 +8,13 @@ on:
 env:
   ARTIFACT_NAME: "artifact-tutorial-backend"
 
+
 jobs:
   build:
     runs-on: ubuntu-18.04
     environment:
       name: sit
+
 
     steps:
     - name: Checkout code
@@ -36,7 +38,7 @@ jobs:
     
     - name: Pack Artifact
       run: cd Tutorial.Api/bin/Release/net6.0 && tar -zcvf ${{ env.ARTIFACT_NAME }}-${{ env.RELEASE_VERSION }}.tar.gz *
-
+      
     - name: Upload Artifact Release
       uses: softprops/action-gh-release@v1
       with:
