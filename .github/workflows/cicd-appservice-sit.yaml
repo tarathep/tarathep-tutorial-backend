@@ -38,7 +38,8 @@ jobs:
       run: cd Tutorial.Api/bin/Release/net6.0 && tar -zcvf ${{ env.ARTIFACT_NAME }}-${{ env.RELEASE_VERSION }}.tar.gz *
 
     - run: |
-        pwd
+        echo ${{ env.RELEASE_VERSION }}
+        cd ${{ github.workspace }}/Tutorial.Api/bin/Release/net6.0/
         ls -al
 
     - name: Upload Artifact Release
