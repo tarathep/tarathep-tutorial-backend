@@ -37,13 +37,7 @@ jobs:
     - name: Pack Artifact
       run: cd Tutorial.Api/bin/Release/net6.0 && tar -zcvf ${{ env.ARTIFACT_NAME }}-${{ env.RELEASE_VERSION }}.tar.gz *
 
-    - run: |
-        echo ${{ env.RELEASE_VERSION }}
-        cd ${{ github.workspace }}/Tutorial.Api/bin/Release/net6.0/
-        ls -al
-
     - name: Upload Artifact Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ env.RELEASE_VERSION }}
         files: ${{ github.workspace }}/Tutorial.Api/bin/Release/net6.0/${{ env.ARTIFACT_NAME }}-${{ env.RELEASE_VERSION }}.tar.gz
