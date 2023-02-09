@@ -22,7 +22,8 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         target: https://app-tarathec-az-asse-${{ github.event_name == 'repository_dispatch' && 'sit' || github.event.inputs.env }}-001.azurewebsites.net/api/tutorials
-    
+        fail_action: false
+
     - name: Create sarif file from zaproxy results
       uses: SvanBoxel/zaproxy-to-ghas@main
     
