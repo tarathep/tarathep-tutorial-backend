@@ -1,0 +1,34 @@
+name: DAST OWSAP ZAP (No auth)
+
+on:
+  repository_dispatch:
+    types: [tarathep-tutorial-be-dast-sit]
+  workflow_dispatch:
+    inputs:
+      env:
+        description: Environment
+        required: true
+        default: 'sit'
+
+jobs:
+  dast_zap_scan:
+    name: DAST (OWASP ZAP)
+    runs-on: ubuntu-latest
+    environment: ${{ github.event_name == 'repository_dispatch' && 'sit' || github.event.inputs.env }}
+    
+    steps:
+    - name: ZAP Scan
+      uses: zaproxy/action-full-scan@v0.4.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        target: https://app-tarathec-az-asse-${{ github.event_name == 'repository_dispatch' && 'sit' || github.event.inputs.env }}-001.azurewebsites.net/api/tutorials
+    
+    - name: Create sarif file from zaproxy results
+      uses: SvanBoxel/zaproxy-to-ghas@main
+    
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+          sarif_file: results.sarif
+
+
