@@ -16,9 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.event_name == 'repository_dispatch' && 'sit' || github.event.inputs.env }}
     permissions:
-      actions: read
-      contents: read
+      actions: write
+      contents: write
       security-events: write
+
     
     
     steps:
