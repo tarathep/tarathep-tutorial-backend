@@ -19,6 +19,7 @@ jobs:
       actions: write
       contents: write
       security-events: write
+      issues: write
 
     
     
